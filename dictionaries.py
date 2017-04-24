@@ -50,7 +50,7 @@ def wordCount(para):
     for x in range(len(newPara)): #For loop to assign word counts to dictionary
         paraWordCount[newPara[x]] = newPara.count(newPara[x])
     print(paraWordCount)
-
+    
 if __name__ = '__main__':
     dictEx1()
     dictEx2()
