@@ -46,11 +46,11 @@ letter(word)
 
 def wordCount(para):
     paraWordCount = {} #Defines empty dictionary
-    newPara = para.split(' ') #Splits inputted paragraph in to list
+    newPara = pra.split(' ') #Splits inputted paragraph in to list
     for x in range(len(newPara)): #For loop to assign word counts to dictionary
         paraWordCount[newPara[x]] = newPara.count(newPara[x])
     print(paraWordCount)
-    
+
 if __name__ = '__main__':
     dictEx1()
     dictEx2()

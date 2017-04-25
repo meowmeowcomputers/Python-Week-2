@@ -1,13 +1,64 @@
 def lookupEntry():
-    print('lookup')
+    fileHandler = open('entries.txt', 'r')
+    contents = fileHandler.read() #Loads contents of file in to variable
+    blockList = contents.split(',') #Splits entires in to '"Name": "Number"' list
+
+    for x in range(len(blockList)): # Splits name and number
+        blockList[x] = blockList[x].upper().split(':')
+
+    phoneDict = {} #Populates dictionary with entries
+    for x in range(len(blockList)):
+        for y in range(len(blockList[x])):
+            if y % 2 == 0:
+                phoneDict[blockList[x][y]] = blockList[x][y+1]
+
+    lookup = input('Enter the (first) name of the person whose number you\'re looking for: ').upper()
+
+    if lookup in list(phoneDict.keys()): #Looks up user input in dictionary
+        print('\nName: ', lookup)
+        print('Phone Number: ', phoneDict[lookup],'\n')
+        again()
+    else:
+        print('Name not found!')
+        again()
+
+def again():
+    again = input('Continue using Phonebook? (y/n)').upper()
+    if again == 'Y':
+        phonebook()
+    elif again == 'N':
+        print('Bye!')
+        exit()
+    else:
+        print('Please enter a valid response(y/n)')
+        again()
+
 def setEntry():
-    print('setEntry')
+    fileHandler = open('entries.txt', 'a')
+    name = input('Please enter a name to add to Phonebook: ')
+    number = input('Please enter a phone number: ')
+    fileHandler.write(',{0}:{1}'.format(name,number))
+    fileHandler.close()
+    again()
+
 def deleteEntry():
-    print('Delete')
+print('Delete')
+    fileHandler = open('entries.txt', 'r')
+    contents = fileHandler.read() #Loads contents of file in to variable
+    blockList = contents.split(',') #Splits entires in to '"Name": "Number"' list
+
+    for x in range(len(blockList)): # Splits name and number
+        blockList[x] = blockList[x].upper().split(':')
+
+    phoneDict = {} #Populates dictionary with entries
+    for x in range(len(blockList)):
+        for y in range(len(blockList[x])):
+            if y % 2 == 0:
+                phoneDict[blockList[x][y]] = blockList[x][y+1]
+    
+
 def listEntry():
     print('list)')
-
-LISTING = {}
 
 def phonebook():
     options = {
@@ -15,8 +66,9 @@ def phonebook():
         '2': setEntry,
         '3': deleteEntry,
         '4': listEntry,
-        '5': quit
+        '5': exit
         }
+
     try:
         print('Electronic Phone Book')
         print('=====================')
@@ -29,3 +81,5 @@ def phonebook():
     except KeyError:
         print('\n**********************\n*Enter a valid number*\n**********************\n\n\n\n')
         phonebook()
+
+phonebook()
